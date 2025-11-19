@@ -1,0 +1,19 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="favicon-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g transform="translate(32, 32)" stroke="#d4af37" fill="#d4af37" filter="url(#favicon-glow)">
+        <!-- Outer diamond shape -->
+        <path d="M 0 -24 L 18 0 L 0 24 L -18 0 Z" fill-opacity="0.15" stroke-width="3"/>
+        <!-- Eye shape -->
+        <ellipse cx="0" cy="0" rx="14" ry="9" fill-opacity="0.15" stroke-width="3"/>
+        <!-- Pupil -->
+        <circle cx="0" cy="0" r="5" fill-opacity="0.9" stroke="none"/>
+    </g>
+</svg>
