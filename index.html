@@ -1,736 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "VisualArtwork",
+          "@id": "https://heimdall.im/#content",
+          "url": "https://heimdall.im",
+          "name": "Heimdall | The Threshold of Perception",
+          "description": "An interactive digital monument exploring provenance and perception. The landmark does not exist until it is unearthed by the viewer's gaze.",
+          "artMedium": "Interactive Web Art",
+          "artForm": "Digital Monument",
+          "inLanguage": "en-US",
+          "datePublished": "2025-01-01",
+          "publisher": { "@id": "https://unearth.im/#organization" },
+          "isPartOf": { "@id": "https://heimdall.im/#website" },
+          "author": [
+            { "@id": "https://josiest.com/#person" },
+            { "@id": "https://felixvelas.co/#person" }
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://heimdall.im/#website",
+          "url": "https://heimdall.im",
+          "name": "heimdall.im",
+          "publisher": { "@id": "https://unearth.im/#organization" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://unearth.im/#organization",
+          "name": "unearth.im",
+          "url": "https://unearth.im",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://unearth.im/favicon-32x32.png"
+          },
+          "foundingDate": "2024",
+          "sameAs": [
+            "https://twitter.com/unearthim",
+            "https://github.com/unearthim"
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://josiest.com/#person",
+          "name": "Josie Jefferson",
+          "url": "https://josiest.com",
+          "jobTitle": "Digital Archaeologist & Trust Architect",
+          "affiliation": { "@id": "https://unearth.im/#organization" },
+          "sameAs": ["https://notjojo.im"]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://felixvelas.co/#person",
+          "name": "Felix Velasco",
+          "url": "https://felixvelas.co",
+          "jobTitle": "Trust Architect & Digital Archaeologist",
+          "affiliation": { "@id": "https://unearth.im/#organization" },
+          "sameAs": ["https://www.linkedin.com/in/felix-velasco-b793015"]
+        }
+      ]
+    }
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- === 1. Primary Meta Tags === -->
-    <title>Heimdall - Guardian of the Bifröst</title>
-    <meta name="title" content="Heimdall - Guardian of the Bifröst">
-    <meta name="description" content="An interactive digital monument visualizing Heimdall, the watchman of the gods in Norse mythology, guardian of the rainbow bridge Bifröst.">
-    <meta name="keywords" content="Heimdall, Bifröst, Norse mythology, interactive art, digital monument, generative art, Asgard, unearth.im">
-    <meta name="author" content="heimdall.im (An unearth.im Project)">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="language" content="English">
-    
-    <!--- NON-NEGOTIABLE AND IMPORTANT:CANONICAL LINKS: if page-url.html is index.html, no need to attach it at the end of link--->
-    <link rel="canonical" href="https://heimdall.im/" />
- 
-    <!-- === 2. Webmention Endpoint === -->
-    <link rel="webmention" href="https://webmention.io/unearth.im/webmention" />
-
-    <!-- === 3. Open Graph / Facebook === -->
-    <meta property="og:type" content="website"> 
-    <meta property="og:url" content="https://heimdall.im/">
-    <meta property="og:title" content="Heimdall - Guardian of the Bifröst">
-    <meta property="og:description" content="An interactive digital monument visualizing Heimdall, the watchman of the gods in Norse mythology, guardian of the rainbow bridge Bifröst.">
-    <meta property="og:image" content="https://heimdall.im/og-image.png">
-    <meta property="og:site_name" content="Heimdall">
-
-    <!-- === 4. Twitter Card === -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://heimdall.im/">
-    <meta property="twitter:title" content="Heimdall - Guardian of the Bifröst">
-    <meta property="twitter:description" content="An interactive digital monument visualizing Heimdall, the watchman of the gods in Norse mythology, guardian of the rainbow bridge Bifröst.">
-    <meta property="twitter:image" content="https://heimdall.im/og-image.png">
-
-    <!-- === 5. Favicons === -->
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="alternate icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-    <!-- Brand Color Meta Tags - FUSE APPROPRIATE COLORS-->
-    <meta name="theme-color" content="#0d0d1a">
-    <meta name="msapplication-TileColor" content="#d4af37">
-
+    <title>Heimdall | The Threshold of Perception</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React and ReactDOM CDNs -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for in-browser JSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        :root {
-  /* Primitive Color Tokens */
-  --color-white: rgba(255, 255, 255, 1);
-  --color-black: rgba(0, 0, 0, 1);
-  --color-cream-50: rgba(252, 252, 249, 1);
-  --color-cream-100: rgba(255, 255, 253, 1);
-  --color-gray-200: rgba(245, 245, 245, 1);
-  --color-gray-300: rgba(167, 169, 169, 1);
-  --color-gray-400: rgba(119, 124, 124, 1);
-  --color-slate-500: rgba(98, 108, 113, 1);
-  --color-brown-600: rgba(94, 82, 64, 1);
-  --color-charcoal-700: rgba(31, 33, 33, 1);
-  --color-charcoal-800: rgba(38, 40, 40, 1);
-  --color-slate-900: rgba(19, 52, 59, 1);
-  --color-teal-300: rgba(50, 184, 198, 1);
-  --color-teal-400: rgba(45, 166, 178, 1);
-  --color-teal-500: rgba(33, 128, 141, 1);
-  --color-teal-600: rgba(29, 116, 128, 1);
-  --color-teal-700: rgba(26, 104, 115, 1);
-  --color-teal-800: rgba(41, 150, 161, 1);
-  --color-red-400: rgba(255, 84, 89, 1);
-  --color-red-500: rgba(192, 21, 47, 1);
-  --color-orange-400: rgba(230, 129, 97, 1);
-  --color-orange-500: rgba(168, 75, 47, 1);
-
-  --color-brown-600-rgb: 94, 82, 64;
-  --color-teal-500-rgb: 33, 128, 141;
-  --color-slate-900-rgb: 19, 52, 59;
-  --color-slate-500-rgb: 98, 108, 113;
-  --color-red-500-rgb: 192, 21, 47;
-  --color-red-400-rgb: 255, 84, 89;
-  --color-orange-500-rgb: 168, 75, 47;
-  --color-orange-400-rgb: 230, 129, 97;
-
-  --color-bg-1: rgba(59, 130, 246, 0.08);
-  --color-bg-2: rgba(245, 158, 11, 0.08);
-  --color-bg-3: rgba(34, 197, 94, 0.08);
-  --color-bg-4: rgba(239, 68, 68, 0.08);
-  --color-bg-5: rgba(147, 51, 234, 0.08);
-  --color-bg-6: rgba(249, 115, 22, 0.08);
-  --color-bg-7: rgba(236, 72, 153, 0.08);
-  --color-bg-8: rgba(6, 182, 212, 0.08);
-
-  --color-background: var(--color-cream-50);
-  --color-surface: var(--color-cream-100);
-  --color-text: var(--color-slate-900);
-  --color-text-secondary: var(--color-slate-500);
-  --color-primary: var(--color-teal-500);
-  --color-primary-hover: var(--color-teal-600);
-  --color-primary-active: var(--color-teal-700);
-  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
-  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
-  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
-  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
-  --color-btn-primary-text: var(--color-cream-50);
-  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
-  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
-  --color-error: var(--color-red-500);
-  --color-success: var(--color-teal-500);
-  --color-warning: var(--color-orange-500);
-  --color-info: var(--color-slate-500);
-  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
-  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
-
-  --focus-ring: 0 0 0 3px var(--color-focus-ring);
-  --focus-outline: 2px solid var(--color-primary);
-  --status-bg-opacity: 0.15;
-  --status-border-opacity: 0.25;
-
-  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-size-xs: 11px;
-  --font-size-sm: 12px;
-  --font-size-base: 14px;
-  --font-size-md: 14px;
-  --font-size-lg: 16px;
-  --font-size-xl: 18px;
-  --font-size-2xl: 20px;
-  --font-size-3xl: 24px;
-  --font-size-4xl: 30px;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 550;
-  --font-weight-bold: 600;
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.5;
-  --letter-spacing-tight: -0.01em;
-
-  --space-0: 0;
-  --space-1: 1px;
-  --space-2: 2px;
-  --space-4: 4px;
-  --space-6: 6px;
-  --space-8: 8px;
-  --space-10: 10px;
-  --space-12: 12px;
-  --space-16: 16px;
-  --space-20: 20px;
-  --space-24: 24px;
-  --space-32: 32px;
-
-  --radius-sm: 6px;
-  --radius-base: 8px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-full: 9999px;
-
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
-  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.03);
-
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-gray-400-rgb: 119, 124, 124;
-    --color-teal-300-rgb: 50, 184, 198;
-    --color-gray-300-rgb: 167, 169, 169;
-    --color-gray-200-rgb: 245, 245, 245;
-
-    --color-bg-1: rgba(29, 78, 216, 0.15);
-    --color-bg-2: rgba(180, 83, 9, 0.15);
-    --color-bg-3: rgba(21, 128, 61, 0.15);
-    --color-bg-4: rgba(185, 28, 28, 0.15);
-    --color-bg-5: rgba(107, 33, 168, 0.15);
-    --color-bg-6: rgba(194, 65, 12, 0.15);
-    --color-bg-7: rgba(190, 24, 93, 0.15);
-    --color-bg-8: rgba(8, 145, 178, 0.15);
-
-    --color-background: var(--color-charcoal-700);
-    --color-surface: var(--color-charcoal-800);
-    --color-text: var(--color-gray-200);
-    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
-    --color-primary: var(--color-teal-300);
-    --color-primary-hover: var(--color-teal-400);
-    --color-primary-active: var(--color-teal-800);
-    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
-    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
-    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
-    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
-    --color-error: var(--color-red-400);
-    --color-success: var(--color-teal-300);
-    --color-warning: var(--color-orange-400);
-    --color-info: var(--color-gray-300);
-    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
-    --color-btn-primary-text: var(--color-slate-900);
-    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
-    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
-    --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-    --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
-  }
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--font-family-base);
-    overflow: hidden;
-    background: #0d0d1a;
-    color: var(--color-gray-200);
-}
-
-#heimdallCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #0d0d1a;
-}
-
-.ui-overlay {
-    position: fixed;
-    z-index: 10;
-    pointer-events: none;
-}
-
-.ui-overlay * {
-    pointer-events: auto;
-}
-
-.intro-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 100;
-    background: rgba(13, 13, 26, 0.97);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(10px);
-    transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-
-.intro-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.intro-content {
-    max-width: 700px;
-    text-align: center;
-    padding: var(--space-32);
-}
-
-.intro-content h1 {
-    font-size: var(--font-size-4xl);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-16);
-    color: #d4af37;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
-.intro-content .subtitle {
-    font-size: var(--font-size-xl);
-    color: #9eb3c7;
-    margin-bottom: var(--space-24);
-    font-style: italic;
-}
-
-.intro-content p {
-    font-size: var(--font-size-base);
-    color: var(--color-gray-300);
-    margin-bottom: var(--space-12);
-    line-height: 1.7;
-}
-
-.mythology-text {
-    margin-top: var(--space-24);
-    padding: var(--space-20);
-    background: rgba(120, 100, 200, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: var(--radius-lg);
-    font-size: var(--font-size-sm);
-    color: #b8c7d8;
-    line-height: 1.6;
-}
-
-.begin-btn {
-    margin-top: var(--space-32);
-    padding: var(--space-12) var(--space-32);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-    background: rgba(212, 175, 55, 0.2);
-    color: #d4af37;
-    border: 1px solid rgba(212, 175, 55, 0.5);
-    border-radius: var(--radius-base);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: var(--font-family-base);
-}
-
-.begin-btn:hover {
-    background: rgba(212, 175, 55, 0.3);
-    border-color: rgba(212, 175, 55, 0.7);
-    transform: translateY(-2px);
-}
-
-.controls-container {
-    bottom: var(--space-24);
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: var(--space-12);
-    align-items: center;
-    background: rgba(20, 25, 45, 0.85);
-    padding: var(--space-12) var(--space-24);
-    border-radius: var(--radius-full);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 95vw;
-}
-
-.control-group {
-    display: flex;
-    align-items: center;
-    gap: var(--space-10);
-}
-
-.control-label {
-    font-size: var(--font-size-sm);
-    color: #b8c7d8;
-    white-space: nowrap;
-}
-
-.slider {
-    width: 100px;
-    height: 4px;
-    border-radius: var(--radius-full);
-    background: rgba(212, 175, 55, 0.2);
-    outline: none;
-    -webkit-appearance: none;
-}
-
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #d4af37;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.4);
-}
-
-.slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #d4af37;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.4);
-}
-
-.btn {
-    padding: var(--space-8) var(--space-16);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    background: rgba(212, 175, 55, 0.15);
-    color: #d4af37;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: var(--radius-base);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: var(--font-family-base);
-    white-space: nowrap;
-}
-
-.btn:hover {
-    background: rgba(212, 175, 55, 0.25);
-    border-color: rgba(212, 175, 55, 0.5);
-}
-
-.btn:active {
-    transform: scale(0.96);
-}
-
-.info-panel {
-    top: var(--space-24);
-    left: var(--space-24);
-    background: rgba(20, 25, 45, 0.85);
-    padding: var(--space-16);
-    border-radius: var(--radius-lg);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    font-size: var(--font-size-sm);
-    color: #b8c7d8;
-    max-width: 280px;
-}
-
-.info-panel h3 {
-    font-size: var(--font-size-base);
-    margin-bottom: var(--space-12);
-    color: #d4af37;
-    font-weight: var(--font-weight-semibold);
-}
-
-.info-panel p {
-    margin: var(--space-8) 0;
-    line-height: 1.5;
-}
-
-.echo-indicator {
-    margin-top: var(--space-12);
-    padding: var(--space-8);
-    background: rgba(100, 80, 180, 0.15);
-    border-radius: var(--radius-base);
-    font-size: var(--font-size-xs);
-    color: #c8b8e8;
-}
-
-.instructions {
-    top: var(--space-24);
-    right: var(--space-24);
-    background: rgba(20, 25, 45, 0.85);
-    padding: var(--space-16);
-    border-radius: var(--radius-lg);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    font-size: var(--font-size-xs);
-    color: #b8c7d8;
-    max-width: 220px;
-}
-
-.instructions h4 {
-    font-size: var(--font-size-sm);
-    margin-bottom: var(--space-10);
-    color: #d4af37;
-    font-weight: var(--font-weight-semibold);
-}
-
-.instructions ul {
-    list-style: none;
-    padding: 0;
-}
-
-.instructions li {
-    margin: var(--space-6) 0;
-    padding-left: var(--space-16);
-    position: relative;
-}
-
-.instructions li:before {
-    content: "→";
-    position: absolute;
-    left: 0;
-    color: #8898a8;
-}
-
-@media (max-width: 768px) {
-    .info-panel, .instructions {
-        font-size: var(--font-size-xs);
-        padding: var(--space-12);
-        max-width: 200px;
-    }
-    
-    .controls-container {
-        font-size: var(--font-size-xs);
-        gap: var(--space-8);
-        padding: var(--space-10) var(--space-16);
-    }
-    
-    .slider {
-        width: 80px;
-    }
-}
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(13, 13, 26, 0.95);
-    backdrop-filter: blur(15px);
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-    pointer-events: none;
-}
-
-.modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.modal-content {
-    background: rgba(20, 25, 45, 0.95);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: var(--radius-lg);
-    max-width: 800px;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: var(--space-32);
-    position: relative;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    transform: translateY(20px);
-    transition: transform 0.4s ease;
-}
-
-.modal-overlay.active .modal-content {
-    transform: translateY(0);
-}
-
-.modal-close {
-    position: absolute;
-    top: var(--space-16);
-    right: var(--space-16);
-    background: transparent;
-    border: none;
-    color: #d4af37;
-    font-size: 32px;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-base);
-    transition: all 0.2s ease;
-    line-height: 1;
-}
-
-.modal-close:hover {
-    background: rgba(212, 175, 55, 0.15);
-    transform: scale(1.1);
-}
-
-.modal-content h2 {
-    font-size: var(--font-size-3xl);
-    color: #d4af37;
-    margin-bottom: var(--space-24);
-    letter-spacing: 0.05em;
-    text-align: center;
-}
-
-.modal-body {
-    color: #b8c7d8;
-    line-height: 1.7;
-}
-
-.modal-body h3 {
-    font-size: var(--font-size-lg);
-    color: #d4af37;
-    margin-top: var(--space-24);
-    margin-bottom: var(--space-12);
-    font-weight: var(--font-weight-semibold);
-}
-
-.modal-body h3:first-child {
-    margin-top: 0;
-}
-
-.modal-body p {
-    margin-bottom: var(--space-16);
-    font-size: var(--font-size-base);
-}
-
-.footer-branding {
-    position: fixed;
-    bottom: var(--space-16);
-    right: var(--space-24);
-    font-size: var(--font-size-xs);
-    color: rgba(212, 175, 55, 0.4);
-    font-family: var(--font-family-base);
-    letter-spacing: 0.02em;
-    z-index: 5;
-    pointer-events: none;
-}
-
-.footer-branding a {
-    color: rgba(212, 175, 55, 0.5);
-    text-decoration: none;
-    transition: color 0.3s ease;
-    pointer-events: auto;
-}
-
-.footer-branding a:hover {
-    color: rgba(212, 175, 55, 0.8);
-}
-
-@media (max-width: 768px) {
-    .modal-content {
-        margin: var(--space-16);
-        padding: var(--space-24);
-        max-height: 90vh;
-    }
-    
-    .modal-content h2 {
-        font-size: var(--font-size-2xl);
-    }
-    
-    .footer-branding {
-        bottom: 80px;
-        right: var(--space-16);
-        font-size: 10px;
-    }
-}
-
-@font-face {
-  font-family: 'FKGroteskNeue';
-  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
-}
+        /* Custom font styles for Cinzel and Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
     </style>
 </head>
 <body>
-    <canvas id="heimdallCanvas"></canvas>
-    
-    <!-- Intro Overlay -->
-    <div class="intro-overlay" id="introOverlay">
-        <div class="intro-content">
-            <h1>HEIMDALL</h1>
-            <p class="subtitle">Guardian of the Bifröst</p>
-            <p>Visualize Heimdall standing at the edge of the Bifröst, the rainbow bridge, a guardian poised between worlds.</p>
-            <p>His ears catch the faintest echoes — the sound of grass growing, wool on sheep, distant footsteps across cosmic plains.</p>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useEffect, useRef, useState } = React;
+
+        // Note: lucide-react components (Sparkles, Eye, X, ExternalLink)
+        // are replaced with simple text/emoji for this standalone HTML file
+        // as they typically require a build step.
+        // For a full React project, you would import and use them directly.
+        const Sparkles = () => <span className="inline-block align-middle">✨</span>;
+        const Eye = ({ className }) => <span className={`inline-block align-middle ${className}`}>👁️</span>;
+        const X = () => <span className="inline-block align-middle">✕</span>;
+        const ExternalLink = () => <span className="inline-block align-middle">↗</span>;
+
+        const Heimdall = () => {
+          const canvasRef = useRef(null);
+          const [active, setActive] = useState(false);
+          const [infoVisible, setInfoVisible] = useState(true);
+          const [showModal, setShowModal] = useState(false);
+          const mouseRef = useRef({ x: 0, y: 0, active: false });
+          const particlesRef = useRef([]);
+          const frameRef = useRef(0);
+          const bridgeIntensityRef = useRef(0);
+
+          // SEO & Meta Handling
+          useEffect(() => {
+            document.title = "Heimdall | The Threshold of Perception";
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (!metaDesc) {
+              metaDesc = document.createElement('meta');
+              metaDesc.name = "description";
+              document.head.appendChild(metaDesc);
+            }
+            metaDesc.content = "An interactive digital landmark exploring vigilance, connection, and the act of perception. A generative art piece for the modern curator.";
             
-            <div class="mythology-text">
-                <strong>The Legend:</strong> Heimdall is the watchman of the gods in Norse mythology, guardian of the rainbow bridge Bifröst that connects Midgard (Earth) to Asgard (realm of the gods). He possesses superhuman hearing—able to hear grass growing on the earth and wool growing on sheep—and vigilant sight, requiring less sleep than a bird. When Ragnarök comes, he will sound the Gjallarhorn to summon the gods to their final battle.
+            // The font link is now handled by the <style> block in the head
+            // const link = document.createElement('link');
+            // link.href = "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400&display=swap";
+            // link.rel = "stylesheet";
+            // document.head.appendChild(link);
+
+            // return () => {
+            //   document.head.removeChild(link);
+            // };
+          }, []);
+
+          useEffect(() => {
+            const canvas = canvasRef.current;
+            const ctx = canvas.getContext('2d');
+            let width, height;
+
+            const init = () => {
+              width = window.innerWidth;
+              height = window.innerHeight;
+              canvas.width = width;
+              canvas.height = height;
+              
+              const particleCount = width < 768 ? 400 : 1200; 
+              particlesRef.current = [];
+              
+              for (let i = 0; i < particleCount; i++) {
+                particlesRef.current.push({
+                  x: Math.random() * width,
+                  y: Math.random() * height,
+                  vx: (Math.random() - 0.5) * 0.5,
+                  vy: (Math.random() - 0.5) * 0.5,
+                  size: Math.random() * 2 + 0.5,
+                  hue: Math.random() * 60 + 180, 
+                  baseX: Math.random() * width,
+                  baseY: Math.random() * height,
+                  locked: false
+                });
+              }
+            };
+
+            const handleResize = () => {
+              init();
+            };
+
+            const handleMouseMove = (e) => {
+              mouseRef.current = {
+                x: e.clientX,
+                y: e.clientY,
+                active: true
+              };
+              setActive(true);
+              if (infoVisible) setInfoVisible(false);
+            };
+
+            const handleTouchMove = (e) => {
+              mouseRef.current = {
+                x: e.touches[0].clientX,
+                y: e.touches[0].clientY,
+                active: true
+              };
+              setActive(true);
+              if (infoVisible) setInfoVisible(false);
+            };
+
+            const handleLeave = () => {
+              mouseRef.current.active = false;
+              setActive(false);
+            };
+
+            window.addEventListener('resize', handleResize);
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('touchmove', handleTouchMove);
+            window.addEventListener('touchend', handleLeave);
+            canvas.addEventListener('mouseleave', handleLeave);
+
+            init();
+
+            const animate = () => {
+              ctx.fillStyle = 'rgba(5, 5, 8, 0.2)'; 
+              ctx.fillRect(0, 0, width, height);
+              
+              const targetIntensity = mouseRef.current.active ? 1 : 0;
+              bridgeIntensityRef.current += (targetIntensity - bridgeIntensityRef.current) * 0.05;
+
+              const time = frameRef.current * 0.005;
+
+              particlesRef.current.forEach(p => {
+                const noiseX = Math.sin(p.y * 0.01 + time) * 2;
+                const noiseY = Math.cos(p.x * 0.01 + time) * 2;
+
+                if (mouseRef.current.active) {
+                  const dx = mouseRef.current.x - p.x;
+                  const dy = mouseRef.current.y - p.y;
+                  const dist = Math.sqrt(dx * dx + dy * dy);
+                  
+                  const visionRadius = 300; 
+
+                  if (dist < visionRadius) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (visionRadius - dist) / visionRadius;
+                    
+                    p.vx += Math.cos(angle) * force * 0.5;
+                    p.vy += Math.sin(angle) * force * 0.5;
+                    
+                    p.hue = 200 + (dist / visionRadius) * 160; 
+                    p.locked = true;
+                  } else {
+                    p.locked = false;
+                  }
+                } else {
+                   p.locked = false;
+                }
+
+                if (!p.locked) {
+                    p.vx += (Math.random() - 0.5) * 0.05;
+                    p.vy += (Math.random() - 0.5) * 0.05;
+                    p.vx *= 0.99;
+                    p.vy *= 0.99;
+                    p.hue = (p.hue + 0.1) % 360;
+                }
+
+                p.x += p.vx + noiseX * 0.2;
+                p.y += p.vy + noiseY * 0.2;
+
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                const size = p.locked ? p.size * 2.5 : p.size;
+                const opacity = p.locked ? 1 : 0.4;
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${p.hue}, 80%, 60%, ${opacity})`;
+                
+                if (p.locked) {
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = `hsla(${p.hue}, 80%, 60%, 0.8)`;
+                } else {
+                    ctx.shadowBlur = 0;
+                }
+                
+                ctx.fill();
+              });
+
+              if (bridgeIntensityRef.current > 0.01) {
+                ctx.strokeStyle = `rgba(255, 255, 255, ${bridgeIntensityRef.current * 0.3})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(mouseRef.current.x, mouseRef.current.y, 40, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(mouseRef.current.x, mouseRef.current.y);
+                ctx.lineTo(width/2, height/2); 
+                ctx.strokeStyle = `rgba(100, 200, 255, ${bridgeIntensityRef.current * 0.1})`;
+                ctx.stroke();
+              }
+
+              frameRef.current++;
+              requestAnimationFrame(animate);
+            };
+
+            const animationId = requestAnimationFrame(animate);
+
+            return () => {
+              cancelAnimationFrame(animationId);
+              window.removeEventListener('resize', handleResize);
+              window.removeEventListener('mousemove', handleMouseMove);
+              window.removeEventListener('touchmove', handleTouchMove);
+              window.removeEventListener('touchend', handleLeave);
+              canvas.removeEventListener('mouseleave', handleLeave);
+            };
+          }, []); 
+
+          return (
+            <div className="relative w-full h-screen bg-black overflow-hidden font-sans text-white">
+              <canvas 
+                ref={canvasRef} 
+                className="absolute inset-0 z-0 cursor-crosshair touch-none"
+              />
+
+              {/* Narrative UI Overlay */}
+              <div className={`absolute inset-0 z-10 flex flex-col justify-between p-6 md:p-12 transition-opacity duration-500 ${showModal ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                
+                <header className="flex justify-between items-start opacity-80 pointer-events-auto">
+                  <div 
+                    onClick={() => setShowModal(true)}
+                    className="group cursor-pointer"
+                  >
+                    <h1 className="text-3xl md:text-5xl font-bold tracking-wider group-hover:text-cyan-200 transition-colors font-cinzel">
+                      HEIMDALL
+                    </h1>
+                    <p className="text-xs md:text-sm text-cyan-300 tracking-[0.2em] mt-1 uppercase flex items-center gap-2">
+                      The Watcher at the Threshold
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px] border border-cyan-300 rounded px-1">Statement</span>
+                    </p>
+                  </div>
+                  <div className="hidden md:block">
+                    <div className="w-8 h-8 border border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                       <Eye size={16} className="text-cyan-200" />
+                    </div>
+                  </div>
+                </header>
+
+                <div 
+                  className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center transition-opacity duration-1000 ${infoVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                >
+                  <p className="text-lg md:text-xl text-white/70 italic max-w-md leading-relaxed font-cinzel">
+                    "The bridge only exists when you look for it."
+                  </p>
+                  <p className="mt-4 text-xs text-cyan-400 uppercase tracking-widest animate-bounce">
+                    Touch to Perceive
+                  </p>
+                </div>
+
+                <footer className="flex justify-between items-end opacity-60 text-xs md:text-sm pointer-events-auto">
+                  <div className="flex flex-col gap-1">
+                    <span className="flex items-center gap-2">
+                      <Sparkles size={12} />
+                      <span>Identity . Connection . Vigilance</span>
+                    </span>
+                    <span className="text-white/40">unearth.im/heimdall</span>
+                  </div>
+                  
+                  <div className="text-right">
+                     <p className={`transition-all duration-700 ${active ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+                       Signal detected. <br/> 
+                       <span className="text-cyan-300">Bifröst aligned.</span>
+                     </p>
+                  </div>
+                </footer>
+              </div>
+
+              {/* ARTIST STATEMENT MODAL */}
+              {showModal && (
+                <div className="absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300 pointer-events-none">
+                  <div className="relative max-w-2xl w-full bg-zinc-900/90 border border-zinc-800 p-8 md:p-12 shadow-2xl overflow-y-auto max-h-[90vh] pointer-events-auto">
+                    
+                    <button 
+                      onClick={() => setShowModal(false)}
+                      className="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors"
+                    >
+                      <X size={24} />
+                    </button>
+
+                    <div className="space-y-6 font-light text-zinc-300">
+                      <h2 className="text-2xl md:text-3xl text-white font-serif mb-2 font-cinzel">
+                        Artist Statement
+                      </h2>
+                      
+                      <div className="h-px w-20 bg-cyan-500 mb-6"></div>
+
+                      <p>
+                        <strong className="text-white">Heimdall</strong> is not a guard dog; he is a filter. 
+                        In Norse mythology, he could hear the grass grow and see for a hundred leagues. 
+                        In the digital age, this level of omniscience is no longer a godlike power—it is the baseline noise of the internet.
+                      </p>
+
+                      <p>
+                        We are drowning in signal. The role of the modern individual is no longer to seek information, but to <em>curate</em> it. 
+                        To stand at the threshold of one's own attention and decide what is allowed to cross.
+                      </p>
+
+                      {/* NEW VISUAL LEGEND SECTION */}
+                      <div className="mt-8 mb-8 bg-zinc-950/50 p-6 rounded-lg border border-zinc-800">
+                        <h3 className="text-white font-serif text-lg tracking-wide mb-4 border-b border-zinc-700 pb-2 font-cinzel">
+                          Visual Legend
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                          <div>
+                            <strong className="text-cyan-300 block mb-1">The Swarm (Entropy)</strong>
+                            <span className="text-zinc-400 leading-relaxed">The chaotic, dark particles represent the infinite noise of the internet. The "pre-curated" state of the world.</span>
+                          </div>
+                          <div>
+                            <strong className="text-cyan-300 block mb-1">Your Touch (The Gaze)</strong>
+                            <span className="text-zinc-400 leading-relaxed">The cursor represents attention. A landmark does not exist until an observer decides to "unearth" it.</span>
+                          </div>
+                          <div>
+                            <strong className="text-cyan-300 block mb-1">The Bridge (Bifröst)</strong>
+                            <span className="text-zinc-400 leading-relaxed">When particles align to your gaze, they shift spectrum (cyan/gold). This is "connection"—the moment noise becomes signal.</span>
+                          </div>
+                          <div>
+                            <strong className="text-cyan-300 block mb-1">The Eye (Vigilance)</strong>
+                            <span className="text-zinc-400 leading-relaxed">Appears only during sustained interaction. It represents the "Curator," the one who watches the threshold.</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <p className="italic text-zinc-400 border-l-2 border-zinc-700 pl-4 my-6">
+                        "Provenance is not just about where a thing comes from, but how it is perceived. 
+                        The landmark does not exist until it is unearthed by the viewer's gaze."
+                      </p>
+
+                      <div className="pt-6 mt-8 border-t border-zinc-800 text-sm text-zinc-400">
+                        <small>
+                          a <b><a href="https://sentientification.com" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">liminal mind meld</a></b> collaboration:<br />
+                          digital monument by <b><a href="https://unearth.im" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">unearth.im</a></b> | <b><a href="https://archaeobytology.org" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">archive & anvil</a></b>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="absolute inset-0 pointer-events-none opacity-[0.03] z-20" 
+                   style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
+              </div>
             </div>
-            
-            <button class="begin-btn" onclick="startExperience()">Enter the Bifröst</button>
-        </div>
-    </div>
-    
-    <!-- Artist Statement Modal -->
-    <div class="modal-overlay" id="artistModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeArtistModal()">&times;</button>
-            <h2>HEIMDALL: A Digital Monument</h2>
-            <div class="modal-body">
-                <h3>The Guardian Between Worlds</h3>
-                <p>Heimdall stands at the threshold—neither fully in Asgard nor Midgard, but in the liminal space between. The Bifröst is both bridge and boundary, connection and separation. In this visualization, Heimdall becomes the center of a vast echo-map, a living resonator translating the cosmos into waves of light and sound.</p>
-                
-                <h3>Sound as Cosmic Force</h3>
-                <p>In Norse cosmology, sound carries immense power. The blowing of the Gjallarhorn signals the end of an age. Heimdall's legendary hearing—catching sounds imperceptible to others—represents a form of cosmic awareness, an ability to perceive the subtle vibrations that hold reality together. Here, sound manifests as luminous waves: concentric rings of light that ripple outward, each carrying fragments of myth and meaning.</p>
-                
-                <h3>The Echoes Heimdall Hears</h3>
-                <p>This work visualizes four types of subtle sound:</p>
-                <p><strong>Grass Growing:</strong> Slow, meditative waves in earth tones—the patient rhythm of life itself.</p>
-                <p><strong>Wool on Sheep:</strong> Soft, undulating warmth—the gentle persistence of organic growth.</p>
-                <p><strong>Distant Footsteps:</strong> Measured, rhythmic pulses in cool blues and silvers—travelers approaching across cosmic plains.</p>
-                <p><strong>Cosmic Travelers:</strong> Fast, energetic waves—souls and beings crossing between the nine worlds.</p>
-                
-                <h3>Runes as Vibrations</h3>
-                <p>Ancient Norse runes appear within the echo waves, shimmering like vibrations made visible. Each rune is a word of power, a carrier of meaning that surfs the sound waves emanating from Heimdall. They are not static symbols but living glyphs, resonating with the frequencies they traverse.</p>
-                
-                <h3>The Bifröst as Frequency Spectrum</h3>
-                <p>The rainbow bridge renders as both architectural structure and visual music—a prismatic spectrum where each color represents a different frequency of existence. The bridge pulses and shifts based on the echoes flowing through it, becoming a living instrument played by cosmic resonance.</p>
-                
-                <h3>Constellations as Cosmic Score</h3>
-                <p>The night sky becomes a musical staff, with constellations pulsing in rhythm with Heimdall's echoes. When echoes are strong, stars glow brighter. The entire cosmos responds to the guardian's awareness, creating a visual symphony—a celestial orchestra conducted by vigilance itself.</p>
-                
-                <h3>Relics: Monuments to the Horns Yet Blown</h3>
-                <p>When you press SPACE, you trigger a horn blast—a powerful echo burst that leaves behind a glowing relic. These artifacts accumulate, creating a "map of horns blown," a visual record of moments when the guardian's voice rang out. Each relic incorporates sacred geometry and runic symbols, marking locations where sound became monument, where ephemeral vibration crystallized into lasting presence.</p>
-                
-                <h3>Sacred Geometry &amp; the Nine Worlds</h3>
-                <p>Underlying patterns of sacred geometry suggest the interconnected structure of the nine worlds of Norse cosmology. The bird's-eye view reveals Heimdall as the center of a mandala—a cosmic diagram where every echo, every rune, every constellation forms part of a larger pattern of meaning. The guardian becomes both sentinel and lyre, both watcher and the instrument through which the universe sings.</p>
-            </div>
-        </div>
-    </div>
+          );
+        };
 
-    <!-- Info Panel -->
-    <div class="ui-overlay info-panel" id="infoPanel" style="display: none;">
-        <h3>Heimdall the Watchman</h3>
-        <p>Guardian of the Bifröst, possessing superhuman hearing and eternal vigilance.</p>
-        <div class="echo-indicator" id="echoIndicator">
-            Current Echo: <strong>Grass Growing</strong>
-        </div>
-        <p style="margin-top: var(--space-12); font-style: italic; font-size: var(--font-size-xs);">"Each echo ripples outward, carrying fragments of myth across cosmic plains."</p>
-    </div>
-    
-    <!-- Instructions -->
-    <div class="ui-overlay instructions" id="instructions" style="display: none;">
-        <h4>Controls</h4>
-        <ul>
-            <li>Arrow Keys / WASD: Move Heimdall</li>
-            <li>1-4: Cycle echo types</li>
-            <li>SPACE: Horn blast + relic</li>
-            <li>I: Artist statement</li>
-            <li>V: Bird's eye view</li>
-            <li>P: Pause</li>
-        </ul>
-    </div>
-    
-    <!-- Controls -->
-    <div class="ui-overlay controls-container" id="controlsContainer" style="display: none;">
-        <div class="control-group">
-            <label class="control-label" for="intensitySlider">Intensity</label>
-            <input type="range" id="intensitySlider" class="slider" min="0.3" max="2" step="0.1" value="1">
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="volumeSlider">Volume</label>
-            <input type="range" id="volumeSlider" class="slider" min="0" max="1" step="0.05" value="0.6">
-        </div>
-        <button class="btn" id="muteBtn">🔊 Mute</button>
-        <button class="btn" id="pauseBtn">Pause</button>
-        <button class="btn" id="viewBtn">Bird's Eye (V)</button>
-        <button class="btn" id="resetBtn">Reset</button>
-        <button class="btn" id="infoBtn">Info (I)</button>
-    </div>
-
-    <!-- Footer Branding -->
-    <div class="footer-branding">
-        digital monument by <a href="https://unearth.im" target="_blank">unearth.im</a>
-    </div>
-
-    <script src="app.js"></script>
+        // Render the Heimdall component into the root div
+        ReactDOM.createRoot(document.getElementById('root')).render(<Heimdall />);
+    </script>
 </body>
 </html>
